@@ -27,7 +27,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by User on 9/17/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class UserListAdapter extends ArrayAdapter<User> {

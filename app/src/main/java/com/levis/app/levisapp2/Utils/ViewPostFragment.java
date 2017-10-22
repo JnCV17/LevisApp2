@@ -45,7 +45,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 /**
- * Created by User on 8/12/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class ViewPostFragment extends Fragment {

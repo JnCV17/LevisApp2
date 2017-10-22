@@ -23,7 +23,7 @@ import com.levis.app.levisapp2.Home.HomeActivity;
 import com.levis.app.levisapp2.R;
 
 /**
- * Created by User on 6/19/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class LoginActivity extends AppCompatActivity {

@@ -48,7 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
- * Created by User on 6/29/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class ProfileFragment extends Fragment {

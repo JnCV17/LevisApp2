@@ -26,7 +26,7 @@ import com.levis.app.levisapp2.Utils.FirebaseMethods;
 import com.levis.app.levisapp2.models.User;
 
 /**
- * Created by User on 6/19/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class RegisterActivity extends AppCompatActivity {

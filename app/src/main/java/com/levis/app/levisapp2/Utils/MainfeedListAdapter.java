@@ -43,7 +43,7 @@ import java.util.TimeZone;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by User on 9/22/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class MainfeedListAdapter extends ArrayAdapter<Photo> {
@@ -287,7 +287,7 @@ public class MainfeedListAdapter extends ArrayAdapter<Photo> {
         }
 
         @Override
-        public boolean onDoubleTap(MotionEvent e) {
+        public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.d(TAG, "onDoubleTap: double tap detected.");
 
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();

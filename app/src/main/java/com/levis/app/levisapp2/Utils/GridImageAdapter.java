@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import com.levis.app.levisapp2.R;
 
 /**
- * Created by User on 6/4/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class GridImageAdapter extends ArrayAdapter<String> {

@@ -1,7 +1,7 @@
 package com.levis.app.levisapp2.models;
 
 /**
- * Created by User on 6/30/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class UserSettings {

@@ -25,7 +25,7 @@ import com.levis.app.levisapp2.Utils.FirebaseMethods;
 import com.levis.app.levisapp2.Utils.UniversalImageLoader;
 
 /**
- * Created by User on 7/24/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class NextActivity extends AppCompatActivity {

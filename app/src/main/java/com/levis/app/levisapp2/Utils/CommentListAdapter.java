@@ -34,7 +34,7 @@ import java.util.TimeZone;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by User on 8/22/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class CommentListAdapter extends ArrayAdapter<Comment> {

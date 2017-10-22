@@ -3,7 +3,7 @@ package com.levis.app.levisapp2.Utils;
 import android.Manifest;
 
 /**
- * Created by User on 7/10/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class Permissions {

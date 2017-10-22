@@ -40,7 +40,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by User on 6/4/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class EditProfileFragment extends Fragment implements

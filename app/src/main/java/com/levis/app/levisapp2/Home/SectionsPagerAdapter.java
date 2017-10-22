@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Created by juancamilovilladagamboa on 10/21/17.
+ */
+
+/**
  * Class that stores fragments for tabs
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

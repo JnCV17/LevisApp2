@@ -9,7 +9,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 /**
- * Created by User on 8/21/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class Heart {

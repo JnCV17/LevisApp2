@@ -26,13 +26,13 @@ import com.levis.app.levisapp2.Utils.SectionsStatePagerAdapter;
 import java.util.ArrayList;;
 
 /**
- * Created by User on 6/4/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "AccountSettingsActivity";
-    private static final int ACTIVITY_NUM =3;
+    private static final int ACTIVITY_NUM = 3;
 
 
 

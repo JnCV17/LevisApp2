@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by User on 5/28/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class SearchActivity extends AppCompatActivity{

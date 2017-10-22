@@ -26,6 +26,10 @@ import com.levis.app.levisapp2.Utils.ViewCommentsFragment;
 import com.levis.app.levisapp2.models.Photo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+/**
+ * Created by juancamilovilladagamboa on 10/21/17.
+ */
+
 public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = "HomeActivity";

@@ -18,7 +18,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 
 /**
- * Created by User on 6/4/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class UniversalImageLoader {

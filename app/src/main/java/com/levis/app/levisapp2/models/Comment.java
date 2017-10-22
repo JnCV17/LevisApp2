@@ -3,7 +3,7 @@ package com.levis.app.levisapp2.models;
 import java.util.List;
 
 /**
- * Created by User on 8/22/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class Comment {

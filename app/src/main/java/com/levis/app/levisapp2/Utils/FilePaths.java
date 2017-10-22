@@ -3,7 +3,7 @@ package com.levis.app.levisapp2.Utils;
 import android.os.Environment;
 
 /**
- * Created by User on 7/24/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class FilePaths {

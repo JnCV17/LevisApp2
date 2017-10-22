@@ -1,7 +1,7 @@
 package com.levis.app.levisapp2.Utils;
 
 /**
- * Created by User on 6/26/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class StringManipulation {

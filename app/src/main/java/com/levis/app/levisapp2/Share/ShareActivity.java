@@ -19,7 +19,7 @@ import com.levis.app.levisapp2.Utils.Permissions;
 import com.levis.app.levisapp2.Utils.SectionsPagerAdapter;
 
 /**
- * Created by User on 5/28/2017.
+ * Created by juancamilovilladagamboa on 10/21/17.
  */
 
 public class ShareActivity extends AppCompatActivity {
