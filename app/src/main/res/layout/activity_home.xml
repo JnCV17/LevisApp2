@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.levis.app.levisapp2.Home.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Toolbar Superior -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayoutParent">
+            <include layout="@layout/layout_top_tabs"></include>
+
+        </RelativeLayout>
+
+        <!-- Seccion Intermedia -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/relLayout2"
+                android:layout_below="@id/relLayout1">
+
+                <include layout="@layout/layout_center_viewpager"></include>
+
+            </RelativeLayout>
+
+        <!-- Toolbar Navegacion -->
+
+        <include layout="@layout/layout_bottom_navigation_view"></include>
+
+
+    </RelativeLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
