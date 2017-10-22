@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -117,7 +115,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="Liked by Mitch, Tom, Mohammed and 30 others"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:id="@+id/image_likes"/>
@@ -125,7 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="mitch.tabian moutains #earthporn #mountains"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:id="@+id/image_caption"
@@ -135,7 +133,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="View all 3 comments"
                     android:textColor="@color/gray"
                     android:textSize="18sp"
                     android:layout_below="@+id/image_caption"
@@ -145,7 +143,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="3 DAYS AGO"
                     android:textColor="@color/gray"
                     android:textSize="18sp"
                     android:layout_below="@+id/image_comments_link"
@@ -154,27 +152,8 @@
 
             </RelativeLayout>
 
-        </RelativeLayout>
 
-    </ScrollView>
 
-    <include layout="@layout/layout_bottom_navigation_view"/>
+    </RelativeLayout>
 
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

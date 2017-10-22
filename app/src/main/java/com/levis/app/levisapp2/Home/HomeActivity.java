@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import com.levis.app.levisapp2.Login.LoginActivity;
 import com.levis.app.levisapp2.R;
 import com.levis.app.levisapp2.Utils.BottomNavigationViewHelper;
 import com.levis.app.levisapp2.Utils.UniversalImageLoader;
+import com.levis.app.levisapp2.Utils.ViewCommentsFragment;
+import com.levis.app.levisapp2.models.Photo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class HomeActivity extends AppCompatActivity {
@@ -148,6 +151,22 @@ public class HomeActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    public void onCommentThreadSelected(Photo photo, String callingActivity){
+        Log.d(TAG, "onCommentThreadSelected: selected a coemment thread");
+
+        ViewCommentsFragment fragment  = new ViewCommentsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(getString(R.string.photo), photo);
+        args.putString(getString(R.string.home_activity), getString(R.string.home_activity));
+        fragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(getString(R.string.view_comments_fragment));
+        transaction.commit();
+
     }
 
     /**

@@ -313,8 +313,8 @@ public class ViewPostFragment extends Fragment {
         }
 
         @Override
-        public boolean onDoubleTap(MotionEvent e) {
-            Log.d(TAG, "onDoubleTap: double tap detected.");
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            Log.d(TAG, "onSingleTapConfirmed: Single Tap detected.");
 
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
             Query query = reference
@@ -427,6 +427,13 @@ public class ViewPostFragment extends Fragment {
                 mTimestamp.setText(timestampDiff + " DAYS AGO");
             }else{
                 mTimestamp.setText("TODAY");
+        }
+        try{
+            UniversalImageLoader.setImage(mUserAccountSettings.getProfile_photo(), mProfileImage, null, "");
+
+        }catch (NullPointerException e){
+            String defaultPic = "http://www.salonandspagalleria.com/wp-content/uploads/2016/08/profile_default.jpg";
+            UniversalImageLoader.setImage(defaultPic, mProfileImage, null, "");
         }
         UniversalImageLoader.setImage(mUserAccountSettings.getProfile_photo(), mProfileImage, null, "");
         mUsername.setText(mUserAccountSettings.getUsername());
