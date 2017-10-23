@@ -14,13 +14,35 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.levis.app.levisapp2.Home.HomeActivity;
 import com.levis.app.levisapp2.R;
+import com.levis.app.levisapp2.Utils.FirebaseMethods;
+import com.levis.app.levisapp2.models.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by juancamilovilladagamboa on 10/21/17.
@@ -33,11 +55,17 @@ public class LoginActivity extends AppCompatActivity {
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+    private FirebaseMethods firebaseMethods;
+    private FirebaseDatabase mFirebaseDatabase;
+
+    private String append = "";
 
     private Context mContext;
     private ProgressBar mProgressBar;
     private EditText mEmail, mPassword;
     private TextView mPleaseWait;
+    private CallbackManager mCallbackManager;
 
 
     @Override
@@ -49,15 +77,79 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.input_email);
         mPassword = (EditText) findViewById(R.id.input_password);
         mContext = LoginActivity.this;
+        firebaseMethods = new FirebaseMethods(mContext);
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
         Log.d(TAG, "onCreate: started.");
 
         mPleaseWait.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.GONE);
 
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.button_facebook_login);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                // ...
+            }
+        });
+
         setupFirebaseAuth();
         init();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void getUserDetailsFromFB(final AccessToken accessToken) {
+
+        GraphRequest req=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                Log.d(TAG, "onCompleted: Graph request completed");
+                Toast.makeText(getApplicationContext(),"graph request completed",Toast.LENGTH_SHORT).show();
+                try{
+                    String email =  object.getString("email");
+                    Log.d(TAG, "onCompleted: "+email);
+                    String segments[] = email.split("@");
+
+                    String name = segments[0];
+                    Log.d(TAG, "onCompleted: "+ name);
+                    checkIfUsernameExists(name, email, accessToken);
+
+                }catch (JSONException e)
+                {
+                    Toast.makeText(getApplicationContext(),"graph request error : "+e.getMessage(),Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday,picture.type(large)");
+        req.setParameters(parameters);
+        req.executeAsync();
+    }
+
 
     private boolean isStringNull(String string){
         Log.d(TAG, "isStringNull: checking string if null.");
@@ -112,8 +204,6 @@ public class LoginActivity extends AppCompatActivity {
                                         mPleaseWait.setVisibility(View.GONE);
                                     }
                                     else{
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_success),
-                                                Toast.LENGTH_SHORT).show();
                                         mProgressBar.setVisibility(View.GONE);
                                         mPleaseWait.setVisibility(View.GONE);
                                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -146,6 +236,35 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    private void handleFacebookAccessToken(final AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
+        mProgressBar.setVisibility(View.VISIBLE);
+        mPleaseWait.setVisibility(View.VISIBLE);
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            getUserDetailsFromFB(token);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     /**
@@ -185,6 +304,45 @@ public class LoginActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    /**
+     * Check is @param username already exists in the database
+     * @param username
+     */
+    private void checkIfUsernameExists(final String username, final String email, AccessToken token) {
+        Log.d(TAG, "checkIfUsernameExists: Checking if  " + username + " already exists.");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.dbname_users));
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean exists = false;
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Log.d(TAG, "onDataChange: found user:" + singleSnapshot.getValue(User.class).toString());
+
+                    if (username.compareToIgnoreCase(singleSnapshot.getValue(User.class).getUsername()) == 0) {
+                        exists = true;
+                    }
+                }
+                if (exists == false) {
+                    Log.d(TAG, "userNotExists: adding new User");
+                    Log.d(TAG, "username: "+ username);
+                    Log.d(TAG, "pass: "+ email);
+                    firebaseMethods.addNewUser(email, username, "", "", "");
+                }
+            }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+        mProgressBar.setVisibility(View.GONE);
+        mPleaseWait.setVisibility(View.GONE);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 }
 

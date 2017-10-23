@@ -70,6 +70,24 @@
             android:id="@+id/link_signup"
             android:textColor="@color/colorLevis"/>
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/button_facebook_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="Inicia sesion con Facebook"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:id="@+id/link_signup_facebook"
+            android:textColor="@color/colorLevis"/>
+
     </LinearLayout>
 
     <ProgressBar

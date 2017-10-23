@@ -15,8 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,11 +67,34 @@ public class SignOutFragment extends Fragment {
                 mProgressBar.setVisibility(View.VISIBLE);
                 tvSignout.setVisibility(View.VISIBLE);
 
+                for (UserInfo user: FirebaseAuth.getInstance().getCurrentUser().getProviderData()) {
+                    if (user.getProviderId().equals("facebook.com")) {
+                        disconnectFromFacebook();
+                    }
+                }
+
                 mAuth.signOut();
                 getActivity().finish();
             }
         });
         return view;
+    }
+
+    public void disconnectFromFacebook() {
+
+        if (AccessToken.getCurrentAccessToken() == null) {
+            return; // already logged out
+        }
+
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+
+                LoginManager.getInstance().logOut();
+
+            }
+        }).executeAsync();
     }
 
 
