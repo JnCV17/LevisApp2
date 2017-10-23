@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by juancamilovilladagamboa on 10/21/17.
+ * Created by User on 5/28/2017.
  */
 
 public class HomeFragment extends Fragment {
@@ -61,28 +61,29 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "getFollowing: searching for following");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference
-                .child(getString(R.string.dbname_following))
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    Log.d(TAG, "onDataChange: found user: " +
-                            singleSnapshot.child(getString(R.string.field_user_id)).getValue());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            Query query = reference
+                    .child(getString(R.string.dbname_following))
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                        Log.d(TAG, "onDataChange: found user: " +
+                                singleSnapshot.child(getString(R.string.field_user_id)).getValue());
 
-                    mFollowing.add(singleSnapshot.child(getString(R.string.field_user_id)).getValue().toString());
+                        mFollowing.add(singleSnapshot.child(getString(R.string.field_user_id)).getValue().toString());
+                    }
+                    mFollowing.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    //get the photos
+                    getPhotos();
                 }
-                mFollowing.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                //get the photos
-                getPhotos();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
+        }
     }
 
     private void getPhotos(){

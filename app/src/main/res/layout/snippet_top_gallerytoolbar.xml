@@ -31,7 +31,7 @@
                     android:id="@+id/spinnerDirectory"
                     android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:text="Gallery"
+                    android:text="Galeria"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical">
 

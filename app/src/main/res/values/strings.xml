@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LevisApp2</string>
+    <string name="app_name">Levis HWD!</string>
 
     <!-- fragment names -->
     <string name="edit_profile_fragment">Edit Profile</string>
@@ -62,18 +62,18 @@
     <string name="home_activity">Home Activity</string>
 
     <!-- strings -->
-    <string name="gallery">GALLERY</string>
-    <string name="photo">PHOTO</string>
-    <string name="string_open_camera">Open Camera</string>
-    <string name="string_next">Next</string>
-    <string name="string_share">Share</string>
+    <string name="gallery">Galeria</string>
+    <string name="photo">Camara</string>
+    <string name="string_open_camera">Tomar Foto</string>
+    <string name="string_next">Siguiente</string>
+    <string name="string_share">Compartir</string>
 
 
     <!-- LOGIN -->
-    <string name="login_userName">User Name</string>
+    <string name="login_userName">Usuario</string>
     <string name="login_password">Password</string>
     <string name="login_login">Login</string>
-    <string name="login_register">Register</string>
+    <string name="login_register">Registro</string>
     <string name="login_create_account">Dont Have Account?</string>
     <string name="login_terms">Terms and Conditions</string>
 

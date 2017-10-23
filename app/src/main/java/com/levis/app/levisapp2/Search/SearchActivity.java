@@ -89,25 +89,25 @@ public class SearchActivity extends AppCompatActivity{
         });
     }
 
-    private void searchForMatch(String keyword){
+    private void searchForMatch(final String keyword){
         Log.d(TAG, "searchForMatch: searching for a match: " + keyword);
         mUserList.clear();
         //update the users list view
         if(keyword.length() ==0){
 
         }else{
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            Query query = reference.child(getString(R.string.dbname_users))
-                    .orderByChild(getString(R.string.field_username)).equalTo(keyword);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.dbname_users));
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for(DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){
                         Log.d(TAG, "onDataChange: found user:" + singleSnapshot.getValue(User.class).toString());
-
-                        mUserList.add(singleSnapshot.getValue(User.class));
-                        //update the users list view
-                        updateUsersList();
+                        if(keyword.compareToIgnoreCase(singleSnapshot.getValue(User.class).getUsername()) == 0){
+                            mUserList.add(singleSnapshot.getValue(User.class));
+                            //update the users list view
+                            updateUsersList();
+                        }
                     }
                 }
 

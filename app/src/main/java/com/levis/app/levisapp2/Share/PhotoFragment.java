@@ -17,7 +17,7 @@ import com.levis.app.levisapp2.R;
 import com.levis.app.levisapp2.Utils.Permissions;
 
 /**
- * Created by juancamilovilladagamboa on 10/21/17.
+ * Created by User on 5/28/2017.
  */
 
 public class PhotoFragment extends Fragment {
@@ -54,6 +54,8 @@ public class PhotoFragment extends Fragment {
                 }
             }
         });
+
+
 
         return view;
     }
